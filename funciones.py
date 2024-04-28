@@ -10,7 +10,7 @@ def menu():
     3. Modificar nombre de receta.
     4. Mostrar el nombre de las recetas con más de 3 comensales.
     5. Mostrar recetas con etiqueta Pollo desmenuzado.
-    6. Mostrar los ingredientes de la receta Ensalada César.
+    6. Mostrar los ingredientes de la receta.
     7. Mostrar el número de recetas de cada autor.
     8. Salir.''')
     num=input("Elija una opción: ")
@@ -42,7 +42,7 @@ def opciones(num,db):
     elif int(num) == 5:
         PolloDesmenuzado(db)
     elif int(num) == 6:
-        IngEnsaladaCesar(db)
+        IngReceta(db)
     elif int(num) == 7:
         ContRecetasAutor(db)
         
@@ -110,3 +110,11 @@ def PolloDesmenuzado(db):
     for documento in operacion:
         name=documento.get("name")
         print(name)
+
+def IngReceta(db):
+    receta=input("Nombre de la receta: ")
+    try:
+        doc={"name": receta}
+        pprint.pprint(db.find_one(doc, {"ingredients.name":1,"ingredients.qty":1,"_id":0}))
+    except:
+        print("No existe esa receta.")
