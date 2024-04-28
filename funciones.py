@@ -89,11 +89,11 @@ def Modificar(db):
         doc={"name": receta}
         act={"$set":{"name": nuevareceta}}
         print("Se modificará este documento:")
-        pprint.pprint(db.find_one(doc))
+        pprint.pprint(db.find_one(doc,{"name":1}))
         operacion=db.update_one(doc,act)
         print("")
         print("Documento tras actualización")
-        pprint.pprint(db.find_one({"name":nuevareceta}))
+        pprint.pprint(db.find_one({"name":nuevareceta},{"name":1}))
     except:
         print("No existe esa receta.")
 
