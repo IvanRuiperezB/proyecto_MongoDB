@@ -118,3 +118,9 @@ def IngReceta(db):
         pprint.pprint(db.find_one(doc, {"ingredients.name":1,"ingredients.qty":1,"_id":0}))
     except:
         print("No existe esa receta.")
+        
+def ContRecetasAutor(db):
+    doc=[{ "$group": { "_id": "$author", "count": { "$sum": 1 } } }]
+    operacion=db.aggregate(doc)
+    for documento in operacion:
+        print("Autor: ",documento["_id"],(30-len(documento["_id"]))*'.','Recetas: ',documento["count"])
