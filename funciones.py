@@ -51,8 +51,14 @@ def Insertar(db):
     autor=input("Autor: ")
     desc=input("Descripción: ")
     cook=input("Tiempo de cocina: ")
+    while cook.isnumeric() == False:
+        print("La cadena solo puede contener números.")
+        cook=input("Tiempo de cocina: ")
     etiqueta=input("Etiqueta: ")
     comensales=input("Comensales: ")
+    while comensales.isnumeric() == False:
+        print("La cadena solo puede contener números.")
+        comensales=input("Comensales: ")
     
     doc={
         "author": autor,
@@ -62,7 +68,7 @@ def Insertar(db):
         "servings": int(comensales),
         "tags": [etiqueta]
     }
-    resultado=db.insert_one(doc)
+    operacion=db.insert_one(doc)
     print("Se ha insertardo correctamente.")
 
 def Eliminar(db):
@@ -71,7 +77,7 @@ def Eliminar(db):
         doc={"name": receta}
         print("Se eliminará este documento:")
         pprint.pprint(db.find_one(doc))
-        resultado=db.delete_one(doc)
+        operacion=db.delete_one(doc)
         print("Se ha eliminado con éxito.")
     except:
         print("No existe esa receta.")
@@ -84,7 +90,7 @@ def Modificar(db):
         act={"$set":{"name": nuevareceta}}
         print("Se modificará este documento:")
         pprint.pprint(db.find_one(doc))
-        resultado=db.update_one(doc,act)
+        operacion=db.update_one(doc,act)
         print("")
         print("Documento tras actualización")
         pprint.pprint(db.find_one({"name":nuevareceta}))
@@ -93,7 +99,10 @@ def Modificar(db):
 
 def NombreRecetas(db):
     doc={"servings": {"$gt": 3} }
-    resultado=db.find(doc, {"_id":0,"name":1})
-    for documento in resultado:
+    operacion=db.find(doc, {"_id":0,"name":1})
+    for documento in operacion:
         name=documento.get("name")
         print(name)
+        
+def PolloDesmenuzado()
+    
