@@ -47,7 +47,23 @@ def opciones(num,db):
         ContRecetasAutor(db)
         
 def Insertar(db):
-    print('1')
+    nombre=input("Nombre de la receta: ")
+    autor=input("Autor: ")
+    desc=input("Descripción: ")
+    cook=input("Tiempo de cocina: ")
+    etiqueta=input("Etiqueta: ")
+    comensales=input("Comensales: ")
+    
+    doc={
+        "author": autor,
+        "name": nombre,
+        "description": desc,
+        "cook_time": int(cook),
+        "servings": int(comensales),
+        "tags": [etiqueta]
+    }
+    resultado=db.insert_one(doc)
+    print("Se ha insertardo correctamente.")
 
 def Eliminar(db):
     receta=input("Nombre de la receta: ")
@@ -60,9 +76,20 @@ def Eliminar(db):
     except:
         print("No existe esa receta.")
 
-    
 def Modificar(db):
-    print('3')
+    receta=input("Nombre de la receta: ")
+    nuevareceta=input("Nuevo nombre: ")
+    try:
+        doc={"name": receta}
+        act={"$set":{"name": nuevareceta}}
+        print("Se modificará este documento:")
+        pprint.pprint(db.find_one(doc))
+        resultado=db.update_one(doc,act)
+        print("")
+        print("Documento tras actualización")
+        pprint.pprint(db.find_one({"name":nuevareceta}))
+    except:
+        print("No existe esa receta.")
 
 def NombreRecetas(db):
     doc={"servings": {"$gt": 3} }
