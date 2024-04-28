@@ -50,7 +50,16 @@ def Insertar(db):
     print('1')
 
 def Eliminar(db):
-    print('2')
+    receta=input("Nombre de la receta: ")
+    try:
+        doc={"name": receta}
+        print("Se eliminará este documento:")
+        pprint.pprint(db.find_one(doc))
+        resultado=db.delete_one(doc)
+        print("Se ha eliminado con éxito.")
+    except:
+        print("No existe esa receta.")
+
     
 def Modificar(db):
     print('3')
