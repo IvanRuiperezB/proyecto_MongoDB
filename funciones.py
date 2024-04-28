@@ -104,5 +104,9 @@ def NombreRecetas(db):
         name=documento.get("name")
         print(name)
         
-def PolloDesmenuzado()
-    
+def PolloDesmenuzado(db):
+    doc={"tags":"Pollo desmenuzado"}
+    operacion=db.find(doc, {"_id":0,"name":1})
+    for documento in operacion:
+        name=documento.get("name")
+        print(name)
